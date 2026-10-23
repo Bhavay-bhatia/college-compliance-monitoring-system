@@ -1,0 +1,22 @@
+{
+  "name": "college-compliance-monitoring-system",
+  "version": "1.0.0",
+  "description": "AICTE SETU — Self-Evaluation & Transparency Unit (Government Dark Theme Compliance Portal)",
+  "scripts": {
+    "dev": "uvicorn app.main:app --reload --port 8000 --app-dir backend",
+    "start": "uvicorn app.main:app --reload --port 8000 --app-dir backend",
+    "test": "pytest backend -v",
+    "phase0": "python run_phase0.py",
+    "phase1": "python run_phase1.py",
+    "demo": "python run_full_system.py"
+  },
+  "keywords": [
+    "aicte",
+    "compliance",
+    "sih",
+    "fastapi",
+    "government-portal"
+  ],
+  "author": "AICTE SETU Team",
+  "license": "MIT"
+}
