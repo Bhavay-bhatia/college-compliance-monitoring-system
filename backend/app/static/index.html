@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AICTE SETU — Phase 0 Regulatory Compliance Workbench</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: rgba(22, 30, 49, 0.75);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-hover: rgba(30, 41, 67, 0.85);
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --primary: #38bdf8;
+      --primary-glow: rgba(56, 189, 248, 0.25);
+      --success: #10b981;
+      --success-glow: rgba(16, 185, 129, 0.2);
+      --danger: #ef4444;
+      --danger-glow: rgba(239, 68, 68, 0.2);
+      --warning: #f59e0b;
+      --accent: #818cf8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: radial-gradient(circle at top right, #1e1b4b 0%, #090d16 60%, #030712 100%);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+      padding: 24px;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--card-border);
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo-badge {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #38bdf8, #6366f1);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 20px;
+      color: #fff;
+      box-shadow: 0 0 20px var(--primary-glow);
+    }
+
+    .brand-text h1 {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-text h1 span {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: var(--primary);
+      border-radius: 9999px;
+      letter-spacing: 0.5px;
+    }
+
+    .brand-text p {
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      border: none;
+    }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      border: 1px solid var(--card-border);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #0284c7, #38bdf8);
+      color: #fff;
+      box-shadow: 0 4px 15px var(--primary-glow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(56, 189, 248, 0.4);
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, #059669, #10b981);
+      color: #fff;
+    }
+
+    .btn-danger {
+      background: linear-gradient(135deg, #dc2626, #ef4444);
+      color: #fff;
+    }
+
+    /* Grid layout */
+    .layout-grid {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 1024px) {
+      .layout-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Panels */
+    .panel {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .panel-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Form Inputs */
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .form-control {
+      width: 100%;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 13px;
+      transition: all 0.2s ease;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-glow);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .switch-group {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      font-size: 13px;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 40px;
+      height: 22px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(255, 255, 255, 0.15);
+      transition: .3s;
+      border-radius: 34px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: var(--primary);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(18px);
+    }
+
+    /* Preset switcher */
+    .preset-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      background: rgba(15, 23, 42, 0.6);
+      padding: 4px;
+      border-radius: 10px;
+      border: 1px solid var(--card-border);
+    }
+
+    .preset-btn {
+      flex: 1;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      background: transparent;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+
+    .preset-btn.active {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text);
+    }
+
+    /* Executive Summary Bar */
+    .status-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px;
+      border-radius: 14px;
+      margin-bottom: 24px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .status-banner::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 6px;
+    }
+
+    .status-banner.compliant {
+      border-color: rgba(16, 185, 129, 0.4);
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(22, 30, 49, 0.7));
+    }
+    .status-banner.compliant::before {
+      background: var(--success);
+      box-shadow: 0 0 12px var(--success);
+    }
+
+    .status-banner.deficient {
+      border-color: rgba(239, 68, 68, 0.4);
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.08), rgba(22, 30, 49, 0.7));
+    }
+    .status-banner.deficient::before {
+      background: var(--danger);
+      box-shadow: 0 0 12px var(--danger);
+    }
+
+    .status-badge {
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .status-badge.compliant {
+      background: rgba(16, 185, 129, 0.2);
+      color: var(--success);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+    }
+
+    .status-badge.deficient {
+      background: rgba(239, 68, 68, 0.2);
+      color: var(--danger);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+    }
+
+    .metrics-summary {
+      display: flex;
+      gap: 24px;
+    }
+
+    .metric-box {
+      text-align: right;
+    }
+
+    .metric-val {
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .metric-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 4px;
+    }
+
+    /* 6 Rule Cards Grid */
+    .rules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .rule-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 18px;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .rule-card:hover {
+      background: var(--card-hover);
+      border-color: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .rule-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .rule-key {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--primary);
+      font-weight: 600;
+      background: rgba(56, 189, 248, 0.1);
+      padding: 3px 6px;
+      border-radius: 4px;
+    }
+
+    .rule-name {
+      font-size: 14px;
+      font-weight: 700;
+      margin: 6px 0 2px 0;
+    }
+
+    .rule-pill {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+
+    .rule-pill.compliant {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--success);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .rule-pill.deficient {
+      background: rgba(239, 68, 68, 0.15);
+      color: var(--danger);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    .rule-stat-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .rule-stat-row:last-child {
+      border-bottom: none;
+    }
+
+    .stat-label {
+      color: var(--text-muted);
+    }
+
+    .stat-val {
+      font-weight: 600;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .stat-val.bad {
+      color: var(--danger);
+    }
+
+    .stat-val.good {
+      color: var(--success);
+    }
+
+    .rule-explanation {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 12px;
+      color: #cbd5e1;
+      line-height: 1.4;
+    }
+
+    /* Deficiency Table */
+    .deficiency-table-container {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .table-header {
+      padding: 16px 20px;
+      font-weight: 700;
+      font-size: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    th {
+      text-align: left;
+      padding: 12px 18px;
+      background: rgba(15, 23, 42, 0.6);
+      color: var(--text-muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    td {
+      padding: 14px 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      vertical-align: top;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .severity-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .severity-critical {
+      background: rgba(239, 68, 68, 0.2);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.4);
+    }
+
+    .severity-high {
+      background: rgba(245, 158, 11, 0.2);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+    }
+
+    .severity-medium {
+      background: rgba(56, 189, 248, 0.2);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+    }
+
+    .action-text {
+      color: #38bdf8;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="brand">
+        <div class="logo-badge">स सेतु</div>
+        <div class="brand-text">
+          <h1>AICTE SETU <span>PHASE 0 ENGINE</span></h1>
+          <p>Self-Evaluation & Transparency Unit — Deterministic 6 Statutory Rules Engine</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <a href="/docs" target="_blank" class="btn btn-outline" id="docs-btn">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          API Docs (/docs)
+        </a>
+        <button class="btn btn-primary" onclick="triggerEvaluation()" id="eval-btn">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          Evaluate Application
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Grid -->
+    <div class="layout-grid">
+      
+      <!-- Input Panel -->
+      <aside class="panel">
+        <div class="panel-title">
+          <span>Institutional Declaration</span>
+          <span style="font-size: 11px; color: var(--primary);">Self-Check Form</span>
+        </div>
+
+        <!-- Presets -->
+        <div class="preset-bar">
+          <button class="preset-btn active" id="btn-preset-compliant" onclick="loadPreset('compliant')">Compliant Preset</button>
+          <button class="preset-btn" id="btn-preset-deficient" onclick="loadPreset('deficient')">Deficient Preset</button>
+        </div>
+
+        <form id="evalForm">
+          <div class="form-group">
+            <label>Institution Code & Name</label>
+            <input type="text" class="form-control" id="inst_code" value="AICTE-DEMO-EXCELLENCE-TECH">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Annual Intake</label>
+              <input type="number" class="form-control" id="sanctioned_intake" value="240">
+            </div>
+            <div class="form-group">
+              <label>Duration (Years)</label>
+              <input type="number" class="form-control" id="course_duration" value="4">
+            </div>
+          </div>
+
+          <hr style="border:0; border-top: 1px solid var(--card-border); margin: 16px 0;">
+
+          <!-- Rule 1: Faculty -->
+          <div style="font-size: 12px; font-weight: 700; color: var(--primary); margin-bottom: 10px;">1. FACULTY (FSR 1:20)</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Regular Faculty</label>
+              <input type="number" class="form-control" id="fac_total" value="52">
+            </div>
+            <div class="form-group">
+              <label>Professors</label>
+              <input type="number" class="form-control" id="fac_prof" value="6">
+            </div>
+          </div>
+          <div class="switch-group">
+            <span>Ph.D. Qualified Principal Appointed</span>
+            <label class="switch">
+              <input type="checkbox" id="fac_principal" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <hr style="border:0; border-top: 1px solid var(--card-border); margin: 16px 0;">
+
+          <!-- Rule 2: Land & Area -->
+          <div style="font-size: 12px; font-weight: 700; color: var(--primary); margin-bottom: 10px;">2. LAND & CARPET AREA</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Land (Acres)</label>
+              <input type="number" step="0.1" class="form-control" id="land_acres" value="3.2">
+            </div>
+            <div class="form-group">
+              <label>Instructional (sq.m)</label>
+              <input type="number" class="form-control" id="instructional_sqm" value="5100">
+            </div>
+          </div>
+
+          <hr style="border:0; border-top: 1px solid var(--card-border); margin: 16px 0;">
+
+          <!-- Rule 3: Computers -->
+          <div style="font-size: 12px; font-weight: 700; color: var(--primary); margin-bottom: 10px;">3. COMPUTING INFRA (1:4)</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Student Computers</label>
+              <input type="number" class="form-control" id="comp_total" value="255">
+            </div>
+            <div class="form-group">
+              <label>Bandwidth (Mbps)</label>
+              <input type="number" class="form-control" id="comp_bw" value="500">
+            </div>
+          </div>
+
+          <hr style="border:0; border-top: 1px solid var(--card-border); margin: 16px 0;">
+
+          <!-- Rule 4: Library -->
+          <div style="font-size: 12px; font-weight: 700; color: var(--primary); margin-bottom: 10px;">4. LIBRARY RESOURCES</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Book Volumes</label>
+              <input type="number" class="form-control" id="lib_volumes" value="12800">
+            </div>
+            <div class="form-group">
+              <label>Book Titles</label>
+              <input type="number" class="form-control" id="lib_titles" value="2300">
+            </div>
+          </div>
+          <div class="switch-group">
+            <span>International e-Journals Subscribed</span>
+            <label class="switch">
+              <input type="checkbox" id="lib_e_journals" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <hr style="border:0; border-top: 1px solid var(--card-border); margin: 16px 0;">
+
+          <!-- Rule 5 & 6 Checks -->
+          <div style="font-size: 12px; font-weight: 700; color: var(--primary); margin-bottom: 10px;">5 & 6. STATUTORY COMPLIANCES</div>
+          <div class="switch-group">
+            <span>Valid Fire Safety NOC</span>
+            <label class="switch">
+              <input type="checkbox" id="safety_fire" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="switch-group">
+            <span>Divyangjan Ramps & Disabled Toilets</span>
+            <label class="switch">
+              <input type="checkbox" id="safety_ramps" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="switch-group">
+            <span>Anti-Ragging Squad Operational</span>
+            <label class="switch">
+              <input type="checkbox" id="comm_antiragging" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="switch-group">
+            <span>ICC (POSH) with External Member</span>
+            <label class="switch">
+              <input type="checkbox" id="comm_icc" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="switch-group">
+            <span>SGRC & Appointed Ombudsman</span>
+            <label class="switch">
+              <input type="checkbox" id="comm_ombudsman" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+        </form>
+      </aside>
+
+      <!-- Results Area -->
+      <main>
+        
+        <!-- Status Banner -->
+        <div class="status-banner compliant" id="statusBanner">
+          <div>
+            <div style="font-size: 11px; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.5px; margin-bottom: 6px;">Evaluation Result</div>
+            <div class="status-badge compliant" id="overallBadge">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+              COMPLIANT — READY FOR EOA
+            </div>
+            <div id="instDisplaySub" style="margin-top: 8px; font-size: 13px; color: #cbd5e1;">All 6 AICTE Approval Process Handbook (APH) statutory criteria satisfied.</div>
+          </div>
+          <div class="metrics-summary">
+            <div class="metric-box">
+              <div class="metric-val" id="rulesCompliantCount" style="color: var(--success);">6</div>
+              <div class="metric-label">Rules Passed</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-val" id="rulesDeficientCount" style="color: var(--danger);">0</div>
+              <div class="metric-label">Deficiencies</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6 Rule Cards -->
+        <div class="rules-grid" id="rulesCardsContainer">
+          <!-- Dynamically populated -->
+        </div>
+
+        <!-- Deficiency Matrix Table -->
+        <div class="deficiency-table-container">
+          <div class="table-header">
+            <span>Deficiency Matrix & Action Plan</span>
+            <span id="deficiencyTag" style="font-size: 11px; color: var(--text-muted); font-weight: 500;">0 Findings</span>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 130px;">Severity</th>
+                <th style="width: 170px;">Rule Key</th>
+                <th>Deficiency Statement</th>
+                <th>Prescribed Corrective Action</th>
+              </tr>
+            </thead>
+            <tbody id="deficiencyTableBody">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <script>
+    // Presets
+    const presets = {
+      compliant: {
+        inst_code: "AICTE-DEMO-EXCELLENCE-TECH",
+        intake: 240,
+        duration: 4,
+        fac_total: 52,
+        fac_prof: 6,
+        fac_principal: true,
+        land_acres: 3.2,
+        instructional_sqm: 5100,
+        comp_total: 255,
+        comp_bw: 500,
+        lib_volumes: 12800,
+        lib_titles: 2300,
+        lib_e_journals: true,
+        safety_fire: true,
+        safety_ramps: true,
+        comm_antiragging: true,
+        comm_icc: true,
+        comm_ombudsman: true
+      },
+      deficient: {
+        inst_code: "AICTE-DEMO-DEFICIENT-INST",
+        intake: 240,
+        duration: 4,
+        fac_total: 36,
+        fac_prof: 2,
+        fac_principal: false,
+        land_acres: 1.8,
+        instructional_sqm: 3800,
+        comp_total: 140,
+        comp_bw: 100,
+        lib_volumes: 6000,
+        lib_titles: 900,
+        lib_e_journals: false,
+        safety_fire: false,
+        safety_ramps: false,
+        comm_antiragging: false,
+        comm_icc: false,
+        comm_ombudsman: false
+      }
+    };
+
+    function loadPreset(name) {
+      document.getElementById('btn-preset-compliant').classList.toggle('active', name === 'compliant');
+      document.getElementById('btn-preset-deficient').classList.toggle('active', name === 'deficient');
+      
+      const p = presets[name];
+      document.getElementById('inst_code').value = p.inst_code;
+      document.getElementById('sanctioned_intake').value = p.intake;
+      document.getElementById('course_duration').value = p.duration;
+      document.getElementById('fac_total').value = p.fac_total;
+      document.getElementById('fac_prof').value = p.fac_prof;
+      document.getElementById('fac_principal').checked = p.fac_principal;
+      document.getElementById('land_acres').value = p.land_acres;
+      document.getElementById('instructional_sqm').value = p.instructional_sqm;
+      document.getElementById('comp_total').value = p.comp_total;
+      document.getElementById('comp_bw').value = p.comp_bw;
+      document.getElementById('lib_volumes').value = p.lib_volumes;
+      document.getElementById('lib_titles').value = p.lib_titles;
+      document.getElementById('lib_e_journals').checked = p.lib_e_journals;
+      document.getElementById('safety_fire').checked = p.safety_fire;
+      document.getElementById('safety_ramps').checked = p.safety_ramps;
+      document.getElementById('comm_antiragging').checked = p.comm_antiragging;
+      document.getElementById('comm_icc').checked = p.comm_icc;
+      document.getElementById('comm_ombudsman').checked = p.comm_ombudsman;
+
+      triggerEvaluation();
+    }
+
+    async function triggerEvaluation() {
+      const payload = {
+        institution_code: document.getElementById('inst_code').value,
+        academic_year: "2026-2027",
+        programme: "ENGINEERING_AND_TECHNOLOGY",
+        level: "UG",
+        location_type: "URBAN",
+        total_sanctioned_intake: parseInt(document.getElementById('sanctioned_intake').value),
+        course_duration_years: parseInt(document.getElementById('course_duration').value),
+        accredited_status: false,
+        faculty: {
+          total_regular_faculty: parseInt(document.getElementById('fac_total').value),
+          professors: parseInt(document.getElementById('fac_prof').value),
+          associate_professors: 12,
+          assistant_professors: 34,
+          principal: {
+            is_appointed: document.getElementById('fac_principal').checked,
+            phd_qualified: document.getElementById('fac_principal').checked,
+            experience_years: 18.0
+          }
+        },
+        infrastructure: {
+          land_area_acres: parseFloat(document.getElementById('land_acres').value),
+          instructional_area_sqm: parseFloat(document.getElementById('instructional_sqm').value),
+          administrative_area_sqm: 1200.0,
+          amenities_area_sqm: 900.0
+        },
+        computing: {
+          student_terminals: parseInt(document.getElementById('comp_total').value),
+          internet_bandwidth_mbps: parseFloat(document.getElementById('comp_bw').value),
+          system_software_count: 4,
+          application_software_count: 25
+        },
+        library: {
+          total_volumes: parseInt(document.getElementById('lib_volumes').value),
+          total_titles: parseInt(document.getElementById('lib_titles').value),
+          national_journals: 20,
+          international_e_journals: document.getElementById('lib_e_journals').checked,
+          multimedia_terminals: 15
+        },
+        safety_and_access: {
+          fire_noc_valid: document.getElementById('safety_fire').checked,
+          fire_noc_expiry_date: "2027-04-30",
+          structural_stability_certified: true,
+          potable_water_certified: true,
+          barrier_free_ramps: document.getElementById('safety_ramps').checked,
+          braille_enabled_lift: document.getElementById('safety_ramps').checked,
+          disabled_friendly_toilets: document.getElementById('safety_ramps').checked
+        },
+        statutory_committees: {
+          anti_ragging_committee: document.getElementById('comm_antiragging').checked,
+          anti_ragging_squad: document.getElementById('comm_antiragging').checked,
+          internal_complaints_committee_icc: document.getElementById('comm_icc').checked,
+          icc_external_member: document.getElementById('comm_icc').checked,
+          student_grievance_redressal_committee: document.getElementById('comm_ombudsman').checked,
+          ombudsman_appointed: document.getElementById('comm_ombudsman').checked,
+          sc_st_committee: true
+        }
+      };
+
+      try {
+        const res = await fetch('/api/compliance/check', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        renderResults(data);
+      } catch (err) {
+        console.error("Evaluation error:", err);
+      }
+    }
+
+    function renderResults(data) {
+      const banner = document.getElementById('statusBanner');
+      const overallBadge = document.getElementById('overallBadge');
+      const instDisplaySub = document.getElementById('instDisplaySub');
+
+      const isCompliant = data.overall_status === 'COMPLIANT';
+      banner.className = `status-banner ${isCompliant ? 'compliant' : 'deficient'}`;
+      
+      if (isCompliant) {
+        overallBadge.className = 'status-badge compliant';
+        overallBadge.innerHTML = `<svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> COMPLIANT — ZERO DEFICIENCIES`;
+        instDisplaySub.innerText = "Institution fulfills all statutory norms under AICTE Approval Process Handbook.";
+      } else {
+        overallBadge.className = 'status-badge deficient';
+        overallBadge.innerHTML = `<svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg> DEFICIENT — SHORTFALLS IDENTIFIED`;
+        instDisplaySub.innerText = `${data.deficiencies.length} statutory deficiency violations flagged by deterministic rule engine.`;
+      }
+
+      document.getElementById('rulesCompliantCount').innerText = data.compliant_rules_count;
+      document.getElementById('rulesDeficientCount').innerText = data.deficient_rules_count;
+
+      // Render 6 cards
+      const container = document.getElementById('rulesCardsContainer');
+      container.innerHTML = '';
+
+      const ruleNames = {
+        "AICTE_RULE_FSR_01": "Faculty-to-Student Ratio & Cadre",
+        "AICTE_RULE_AREA_02": "Land & Built-Up Area Norms",
+        "AICTE_RULE_COMP_LAB_03": "Computing & Bandwidth Infra",
+        "AICTE_RULE_LIB_04": "Library Resources & e-Journals",
+        "AICTE_RULE_SAFETY_05": "Fire NOC & Divyangjan Access",
+        "AICTE_RULE_COMM_06": "Statutory Oversight Committees"
+      };
+
+      data.results.forEach(r => {
+        const isOk = r.status === 'COMPLIANT';
+        const card = document.createElement('div');
+        card.className = 'rule-card';
+        card.innerHTML = `
+          <div class="rule-card-header">
+            <div>
+              <span class="rule-key">${r.rule_key}</span>
+              <div class="rule-name">${ruleNames[r.rule_key] || r.rule_key}</div>
+            </div>
+            <span class="rule-pill ${isOk ? 'compliant' : 'deficient'}">${r.status}</span>
+          </div>
+          <div class="rule-stat-row">
+            <span class="stat-label">Regulatory Severity</span>
+            <span class="stat-val">${r.severity}</span>
+          </div>
+          <div class="rule-stat-row">
+            <span class="stat-label">Standard Check</span>
+            <span class="stat-val ${isOk ? 'good' : 'bad'}">${isOk ? 'Passed' : 'Deficit'}</span>
+          </div>
+          <div class="rule-explanation">
+            ${r.explanation}
+          </div>
+        `;
+        container.appendChild(card);
+      });
+
+      // Render Table
+      const tbody = document.getElementById('deficiencyTableBody');
+      const tag = document.getElementById('deficiencyTag');
+      tag.innerText = `${data.deficiencies.length} Findings`;
+
+      if (data.deficiencies.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="4" style="text-align: center; color: var(--success); padding: 32px;">
+              ✓ No statutory deficiencies detected. The application satisfies all evaluated AICTE criteria.
+            </td>
+          </tr>
+        `;
+      } else {
+        tbody.innerHTML = data.deficiencies.map(d => `
+          <tr>
+            <td><span class="severity-badge severity-${d.severity.toLowerCase()}">${d.severity}</span></td>
+            <td><code style="font-size: 11px; color: var(--primary);">${d.rule_key}</code></td>
+            <td>${d.description}</td>
+            <td class="action-text">${d.recommended_action}</td>
+          </tr>
+        `).join('');
+      }
+    }
+
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', () => {
+      triggerEvaluation();
+    });
+  </script>
+</body>
+</html>
